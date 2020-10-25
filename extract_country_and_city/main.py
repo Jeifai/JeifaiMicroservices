@@ -6,18 +6,13 @@ from geograpy.extraction import Extractor
 
 sys.path.append('lib/')
 nltk.data.path.append('lib/nltk_data/')
-nltk.download('punkt')
-nltk.download('words')
-nltk.download('treebank')
-nltk.download('maxent_ne_chunker')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('maxent_treebank_pos_tagger')
+
 
 def extract_country_and_city(request):
-    input = request.args.get('input')
-    countries = []
+    input = str(request.args.get('input'))
     e=Extractor(text=input)
-    places=e.find_entities()
+    places = e.find_entities()
+    countries = []
     for place in places:
         city=geograpy.locateCity(place)
         country=city.country.iso
